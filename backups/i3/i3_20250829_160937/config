@@ -211,14 +211,14 @@ exec --no-startup-id i3-msg "workspace 4; exec kitty"
 bar {
     id left-bar
     output DP-0
-    status_command i3blocks
+    status_command i3status
 }
 
 
 bar {
     id right-bar
     output DP-2
-    status_command i3blocks
+    status_command i3status
 }
 
 

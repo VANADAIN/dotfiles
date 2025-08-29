@@ -13,6 +13,7 @@ LOG_FILE="$REPO_DIR/backup.log"
 # Configuration files and directories to manage
 declare -A CONFIG_PATHS=(
     ["i3"]="$HOME/.config/i3"
+	["i3blocks"]="$HOME/.config/i3blocks"
     ["kitty"]="$HOME/.config/kitty"
     ["neovim"]="$HOME/.config/nvim"
     ["nixos"]="/etc/nixos"

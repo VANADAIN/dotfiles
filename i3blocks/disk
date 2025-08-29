@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Root partition usage
+DISK_USAGE=$(df -h / | awk 'NR==2{print $5}')
+USAGE_PERCENT=${DISK_USAGE%\%}
+
+if [ $USAGE_PERCENT -lt 70 ]; then
+    COLOR="#00FF00"
+elif [ $USAGE_PERCENT -lt 90 ]; then
+    COLOR="#FFA500"
+else
+    COLOR="#FF0000"
+fi
+
+echo "Disk: $DISK_USAGE"
+echo "Disk: $DISK_USAGE"
+echo $COLOR

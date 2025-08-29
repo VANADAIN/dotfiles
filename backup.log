@@ -4,3 +4,10 @@
 [2025-08-29 15:10:30] Backed up nixos from /etc/nixos
 [2025-08-29 15:10:30] Backed up neovim from /home/ruarin/.config/nvim
 [2025-08-29 15:10:30] Backup completed
+[2025-08-29 16:09:37] Starting backup operation
+[2025-08-29 16:09:37] Backed up i3blocks from /home/ruarin/.config/i3blocks
+[2025-08-29 16:09:37] Backed up kitty from /home/ruarin/.config/kitty
+[2025-08-29 16:09:37] Backed up i3 from /home/ruarin/.config/i3
+[2025-08-29 16:09:37] Backed up nixos from /etc/nixos
+[2025-08-29 16:09:37] Backed up neovim from /home/ruarin/.config/nvim
+[2025-08-29 16:09:37] Backup completed

@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# Get current keyboard layout
+# For X11
+if command -v setxkbmap >/dev/null 2>&1; then
+    LAYOUT=$(setxkbmap -query | grep layout | awk '{print $2}')
+    VARIANT=$(setxkbmap -query | grep variant | awk '{print $2}')
+    
+    if [ -n "$VARIANT" ] && [ "$VARIANT" != "" ]; then
+        LAYOUT="$LAYOUT ($VARIANT)"
+    fi
+# For Wayland or alternative methods
+elif command -v gsettings >/dev/null 2>&1; then
+    LAYOUT=$(gsettings get org.gnome.desktop.input-sources mru-sources | grep -o "'[^']*'" | head -1 | tr -d "'")
+else
+    # Fallback: check environment variables
+    LAYOUT=${XKB_DEFAULT_LAYOUT:-"unknown"}
+fi
+
+# Shorten layout names for display
+case $LAYOUT in
+    "us") LAYOUT="EN" ;;
+    "ru") LAYOUT="RU" ;;
+    "en") LAYOUT="EN" ;;
+    "de") LAYOUT="DE" ;;
+    "fr") LAYOUT="FR" ;;
+    "es") LAYOUT="ES" ;;
+esac
+
+echo "$LAYOUT"
+echo "$LAYOUT"
+
+# Click handling to switch layout
+case $BLOCK_BUTTON in
+    1) # Left click - switch to next layout
+        if command -v setxkbmap >/dev/null 2>&1; then
+            CURRENT_LAYOUT=$(setxkbmap -query | grep layout | awk '{print $2}')
+            if [ "$CURRENT_LAYOUT" = "us" ] || [ "$CURRENT_LAYOUT" = "en" ]; then
+                setxkbmap ru
+            else
+                setxkbmap us
+            fi
+        fi
+        ;;
+    2) # Middle click - show available layouts
+        notify-send "Keyboard Layout" "Current: $LAYOUT"
+        ;;
+    3) # Right click - open keyboard settings
+        if command -v gnome-control-center >/dev/null 2>&1; then
+            gnome-control-center region &
+        elif command -v systemsettings5 >/dev/null 2>&1; then
+            systemsettings5 kcm_keyboard &
+        fi
+        ;;
+esac

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Weather for Saint-Petersburg, Russia
+CITY="Saint-Petersburg"
+COUNTRY="Russia"
+API_URL="https://wttr.in/${CITY}?format=%C+%t&lang=ru"
+
+# Try to get weather data
+WEATHER_DATA=$(curl -s --connect-timeout 3 "$API_URL" || echo "N/A")
+
+if [ "$WEATHER_DATA" != "N/A" ]; then
+    echo "$WEATHER_DATA"
+    echo "$WEATHER_DATA"
+else
+    echo "No data"
+    echo "No data"
+    echo "#FF0000"
+fi
+
+# Click to open full forecast in browser
+case $BLOCK_BUTTON in
+    1) # Left click
+        xdg-open "https://wttr.in/Saint-Petersburg" 2>/dev/null &
+        ;;
+esac
