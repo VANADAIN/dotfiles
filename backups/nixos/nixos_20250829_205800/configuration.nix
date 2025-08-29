@@ -161,14 +161,7 @@
      kitty
      neovim
      htop
-     tree
      git
-     neofetch
-     bat
-     z-lua
-
-     # tray
-     flameshot
 
      # ======= Desktop 
      telegram-desktop
