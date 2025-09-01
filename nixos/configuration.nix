@@ -75,7 +75,7 @@
       extraPackages = with pkgs; [
         dmenu
         i3status # gives you the default i3 status bar
-        i3blocks #if you are planning on using i3blocks over i3status
+        i3blocks # if you are planning on using i3blocks over i3status
      ];
     };
   };
@@ -89,6 +89,9 @@
   # Vieocard & Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  #
+  services.gvfs.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us,ru";
@@ -99,21 +102,25 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
+
+
+  # Audio
+
   security.rtkit.enable = true;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -133,28 +140,26 @@
   users.users.ruarin.shell = pkgs.fish;
   programs.fish.enable = true;
 
-  # Install firefox.
-  # programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wgea
 
-     # System 
+     # ===== System 
      pciutils
+     usbutils
+     udisks
      grub2
+     gvfs
+     wget
 
-     # Audio
+     # ===== Audio
      pavucontrol
      helvum
      pasystray
 
-     # ========= Terminal
+     # ===== Terminal
      xclip
      wl-clipboard
      fish
@@ -165,18 +170,27 @@
      git
      neofetch
      bat
-     z-lua
+     zoxide
 
-     # tray
+     # ===== Languages
+     rustup
+     go
+     bun
+
+     # Tray
      flameshot
 
-     # ======= Desktop 
+     # ===== Desktop
+     nautilus
      telegram-desktop
      brave
      xfce.thunar
      i3
      i3blocks
+     nekoray
   ];
+
+  programs.nekoray.tunMode.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -204,5 +218,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

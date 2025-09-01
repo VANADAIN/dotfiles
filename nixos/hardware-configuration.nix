@@ -46,12 +46,4 @@
 	forceFullCompositionPipeline = true;
 	package = config.boot.kernelPackages.nvidiaPackages.production;
   };
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true; # PulseAudio compatibility layer
-    jack.enable = true;
-  };
 }

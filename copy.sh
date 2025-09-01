@@ -9,11 +9,12 @@ set -e
 REPO_DIR="$HOME/projects/dotfiles"
 BACKUP_DIR="$REPO_DIR/backups"
 LOG_FILE="$REPO_DIR/backup.log"
+KEEP_BACKUPS=1  # Number of backup versions to keep
 
 # Configuration files and directories to manage
 declare -A CONFIG_PATHS=(
     ["i3"]="$HOME/.config/i3"
-	["i3blocks"]="$HOME/.config/i3blocks"
+    ["i3blocks"]="$HOME/.config/i3blocks"
     ["kitty"]="$HOME/.config/kitty"
     ["neovim"]="$HOME/.config/nvim"
     ["nixos"]="/etc/nixos"
@@ -25,6 +26,28 @@ mkdir -p "$REPO_DIR" "$BACKUP_DIR"
 # Function to log messages
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+}
+
+# Function to clean up old backups
+cleanup_old_backups() {
+    local name="$1"
+    local backup_dir="$BACKUP_DIR/$name"
+    
+    if [[ ! -d "$backup_dir" ]]; then
+        return 0
+    fi
+    
+    # Get list of backups sorted by modification time (newest first)
+    local backups=($(find "$backup_dir" -maxdepth 1 -name "${name}_*" -type d -printf '%T@ %p\n' | sort -nr | cut -d' ' -f2-))
+    
+    # Remove old backups if we have more than KEEP_BACKUPS
+    if [[ ${#backups[@]} -gt $KEEP_BACKUPS ]]; then
+        for ((i = KEEP_BACKUPS; i < ${#backups[@]}; i++)); do
+            local backup_to_remove="${backups[$i]}"
+            log "Removing old backup: $backup_to_remove"
+            rm -rf "$backup_to_remove"
+        done
+    fi
 }
 
 # Function to backup configuration
@@ -44,6 +67,9 @@ backup_config() {
     if [[ -e "$backup_path" ]]; then
         mkdir -p "$BACKUP_DIR/$name"
         cp -r "$backup_path" "$BACKUP_DIR/$name/${name}_${timestamp}"
+        
+        # Clean up old backups after creating new one
+        cleanup_old_backups "$name"
     fi
     
     # Copy current config to repo
@@ -77,6 +103,14 @@ restore_config() {
             cp -r "$target_path" "$BACKUP_DIR/system_backups/${name}_${timestamp}"
         else
             cp "$target_path" "$BACKUP_DIR/system_backups/${name}_${timestamp}"
+        fi
+        
+        # Clean up old system backups
+        local system_backups=($(find "$BACKUP_DIR/system_backups" -maxdepth 1 -name "${name}_*" -type d -printf '%T@ %p\n' | sort -nr | cut -d' ' -f2-))
+        if [[ ${#system_backups[@]} -gt $KEEP_BACKUPS ]]; then
+            for ((i = KEEP_BACKUPS; i < ${#system_backups[@]}; i++)); do
+                rm -rf "${system_backups[$i]}"
+            done
         fi
     fi
     
@@ -113,9 +147,33 @@ show_status() {
             else
                 echo " (system config missing)"
             fi
+            
+            # Show backup count
+            local backup_count=0
+            if [[ -d "$BACKUP_DIR/$name" ]]; then
+                backup_count=$(find "$BACKUP_DIR/$name" -maxdepth 1 -name "${name}_*" -type d | wc -l)
+            fi
+            echo "  Backups available: $backup_count (keeping $KEEP_BACKUPS latest)"
+            
         else
             echo "✗ Not backed up"
         fi
+        echo
+    done
+}
+
+# Function to list all backups
+list_backups() {
+    echo "=== Available Backups ==="
+    for name in "${!CONFIG_PATHS[@]}"; do
+        local backup_dir="$BACKUP_DIR/$name"
+        if [[ -d "$backup_dir" ]]; then
+            echo "$name backups:"
+            find "$backup_dir" -maxdepth 1 -name "${name}_*" -type d -printf '  %f\n' | sort -r
+        else
+            echo "$name: No backups available"
+        fi
+        echo
     done
 }
 
@@ -139,6 +197,27 @@ main() {
         "status")
             show_status
             ;;
+        "list-backups")
+            list_backups
+            ;;
+        "cleanup")
+            log "Starting cleanup operation"
+            for name in "${!CONFIG_PATHS[@]}"; do
+                cleanup_old_backups "$name"
+            done
+            # Also clean system backups
+            if [[ -d "$BACKUP_DIR/system_backups" ]]; then
+                for name in "${!CONFIG_PATHS[@]}"; do
+                    local system_backups=($(find "$BACKUP_DIR/system_backups" -maxdepth 1 -name "${name}_*" -type d -printf '%T@ %p\n' | sort -nr | cut -d' ' -f2-))
+                    if [[ ${#system_backups[@]} -gt $KEEP_BACKUPS ]]; then
+                        for ((i = KEEP_BACKUPS; i < ${#system_backups[@]}; i++)); do
+                            rm -rf "${system_backups[$i]}"
+                        done
+                    fi
+                done
+            fi
+            log "Cleanup completed"
+            ;;
         "init")
             # Initialize git repo
             cd "$REPO_DIR"
@@ -154,11 +233,13 @@ main() {
             fi
             ;;
         *)
-            echo "Usage: $0 {backup|restore|status|init}"
-            echo "  backup  - Copy current configs to repo"
-            echo "  restore - Copy configs from repo to system"
-            echo "  status  - Show current status"
-            echo "  init    - Initialize git repository"
+            echo "Usage: $0 {backup|restore|status|list-backups|cleanup|init}"
+            echo "  backup       - Copy current configs to repo (with backup rotation)"
+            echo "  restore      - Copy configs from repo to system"
+            echo "  status       - Show current status and backup counts"
+            echo "  list-backups - List all available backups"
+            echo "  cleanup      - Manually clean up old backups"
+            echo "  init         - Initialize git repository"
             exit 1
             ;;
     esac

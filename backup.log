@@ -18,3 +18,21 @@
 [2025-08-29 20:58:00] Backed up nixos from /etc/nixos
 [2025-08-29 20:58:00] Backed up neovim from /home/ruarin/.config/nvim
 [2025-08-29 20:58:00] Backup completed
+[2025-09-01 16:10:23] Starting backup operation
+[2025-09-01 16:10:23] Backed up i3blocks from /home/ruarin/.config/i3blocks
+[2025-09-01 16:10:23] Backed up kitty from /home/ruarin/.config/kitty
+[2025-09-01 16:10:23] Backed up i3 from /home/ruarin/.config/i3
+[2025-09-01 16:10:23] Backed up nixos from /etc/nixos
+[2025-09-01 16:10:23] Backed up neovim from /home/ruarin/.config/nvim
+[2025-09-01 16:10:23] Backup completed
+[2025-09-01 16:14:14] Starting cleanup operation
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/i3blocks/i3blocks_20250829_205800
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/kitty/kitty_20250829_205800
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/kitty/kitty_20250829_160937
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/i3/i3_20250829_205800
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/i3/i3_20250829_160937
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/nixos/nixos_20250829_205800
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/nixos/nixos_20250829_160937
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/neovim/neovim_20250829_205800
+[2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/neovim/neovim_20250829_160937
+[2025-09-01 16:14:14] Cleanup completed

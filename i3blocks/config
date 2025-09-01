@@ -1,4 +1,4 @@
-separator_block_width=15
+separator_block_width=25
 markup=none
 
 # Keyboard Layout
@@ -6,6 +6,14 @@ markup=none
 command=~/.config/i3blocks/keyboard
 interval=2
 label=⌨️
+
+# Internet
+#[bandwidth]
+#command=~/.config/i3blocks/bandwidth2 
+#interval=persist
+#markup=pango
+#IFACE=[automatically determined]
+#DT=3
 
 # IP address
 [ip]
