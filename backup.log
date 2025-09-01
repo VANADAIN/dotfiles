@@ -36,3 +36,17 @@
 [2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/neovim/neovim_20250829_205800
 [2025-09-01 16:14:14] Removing old backup: /home/ruarin/projects/dotfiles/backups/neovim/neovim_20250829_160937
 [2025-09-01 16:14:14] Cleanup completed
+[2025-09-01 16:18:47] Starting copy to repo operation
+[2025-09-01 16:18:47] Copied i3blocks from /home/ruarin/.config/i3blocks to repo
+[2025-09-01 16:18:47] Copied kitty from /home/ruarin/.config/kitty to repo
+[2025-09-01 16:18:47] Copied i3 from /home/ruarin/.config/i3 to repo
+[2025-09-01 16:18:47] Copied nixos from /etc/nixos to repo
+[2025-09-01 16:18:47] Copied neovim from /home/ruarin/.config/nvim to repo
+[2025-09-01 16:18:47] Copy to repo completed
+[2025-09-01 16:19:08] Starting copy to repo operation
+[2025-09-01 16:19:08] Copied i3blocks from /home/ruarin/.config/i3blocks to repo
+[2025-09-01 16:19:08] Copied kitty from /home/ruarin/.config/kitty to repo
+[2025-09-01 16:19:08] Copied i3 from /home/ruarin/.config/i3 to repo
+[2025-09-01 16:19:08] Copied nixos from /etc/nixos to repo
+[2025-09-01 16:19:08] Copied neovim from /home/ruarin/.config/nvim to repo
+[2025-09-01 16:19:08] Copy to repo completed
