@@ -195,7 +195,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-assign [class="telegram-desktop"] $ws2 
+# assign [class="telegram-desktop"] $ws2 
 
 # Autostart applications on specific workspaces
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --primary --rate 120 --output DP-2 --mode 1920x1080 --rate 120 --right-of DP-0
@@ -206,6 +206,10 @@ for_window [class="kitty"] floating disable, border none
 
 exec --no-startup-id i3-msg "workspace 2; exec telegram-desktop"
 exec --no-startup-id i3-msg "workspace 4; exec kitty"
+
+
+exec --no-startup-id "flameshot &"
+
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status

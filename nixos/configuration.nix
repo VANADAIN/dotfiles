@@ -105,7 +105,6 @@
 
 
   # Audio
-
   security.rtkit.enable = true;
   services.pulseaudio.enable = false;
   services.pipewire = {
@@ -167,18 +166,31 @@
      neovim
      htop
      tree
+     gnugrep
      git
      neofetch
+     unzip
      bat
      zoxide
+     docker
+     docker-compose
+
 
      # ===== Languages
      rustup
      go
      bun
+     nodejs_22
 
-     # Tray
+     # ===== Dev
+     biome
+     foundry
+
+
+     # ===== Tray
      flameshot
+
+
 
      # ===== Desktop
      nautilus
@@ -188,9 +200,14 @@
      i3
      i3blocks
      nekoray
+     windsurf
+     discord
   ];
 
   programs.nekoray.tunMode.enable = true;
+
+
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -218,4 +235,10 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
+
+
+  hardware.graphics = {
+	enable = true;
+	enable32Bit = true;
+  };
 }
