@@ -138,6 +138,10 @@
   # user config
   users.users.ruarin.shell = pkgs.fish;
   programs.fish.enable = true;
+  programs.zoxide = {
+	enable = true;
+	enableFishIntegration = true;
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -152,6 +156,16 @@
      grub2
      gvfs
      wget
+     gcc
+     binutils
+     pkg-config
+     openssl
+
+     # ===== Media
+     vlc
+     ffmpeg
+     mpv
+
 
      # ===== Audio
      pavucontrol
@@ -174,6 +188,8 @@
      zoxide
      docker
      docker-compose
+     nvidia-container-toolkit
+     libnvidia-container
 
 
      # ===== Languages
@@ -181,6 +197,10 @@
      go
      bun
      nodejs_22
+     python310
+     python314
+     python311
+     uv
 
      # ===== Dev
      biome
@@ -190,6 +210,22 @@
      # ===== Tray
      flameshot
 
+     # ===== Fonts
+     corefonts
+     dejavu_fonts
+     noto-fonts
+     noto-fonts-cjk-sans
+     noto-fonts-emoji
+     liberation_ttf
+     liberation_ttf_v1
+     fira-code
+     fira-code-symbols
+     mplus-outline-fonts.githubRelease
+     dina-font
+     proggyfonts
+     helvetica-neue-lt-std
+     fragment-mono
+     source-code-pro
 
 
      # ===== Desktop
@@ -207,7 +243,22 @@
   programs.nekoray.tunMode.enable = true;
 
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+	enable = true;
+	# enableNvidia = true;
+	#daemon.settings = {
+	#	"runtimes" = {
+	#	    "nvidia" = {
+	#	      "path" = "nvidia-container-runtime";
+	#	      "runtimeArgs" = [];
+	#	    };
+	#	};
+	#	"default-runtime" = "nvidia";
+	#};
+  };
+
+  # Enable NVIDIA container toolkit (replaces enableNvidia)
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
