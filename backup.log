@@ -71,3 +71,10 @@
 [2025-09-29 19:32:20] Copied nixos from /etc/nixos to repo
 [2025-09-29 19:32:20] Copied neovim from /home/ruarin/.config/nvim to repo
 [2025-09-29 19:32:20] Copy to repo completed
+[2025-10-05 20:10:29] Starting copy to repo operation
+[2025-10-05 20:10:29] Copied i3blocks from /home/ruarin/.config/i3blocks to repo
+[2025-10-05 20:10:29] Copied kitty from /home/ruarin/.config/kitty to repo
+[2025-10-05 20:10:29] Copied i3 from /home/ruarin/.config/i3 to repo
+[2025-10-05 20:10:29] Copied nixos from /etc/nixos to repo
+[2025-10-05 20:10:29] Copied neovim from /home/ruarin/.config/nvim to repo
+[2025-10-05 20:10:29] Copy to repo completed

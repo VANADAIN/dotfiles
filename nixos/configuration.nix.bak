@@ -143,6 +143,9 @@
 	enableFishIntegration = true;
   };
 
+  # nix-ld
+  # programs.nix-ld.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -160,6 +163,7 @@
      binutils
      pkg-config
      openssl
+     nix-ld
 
      # ===== Media
      vlc
@@ -197,10 +201,9 @@
      go
      bun
      nodejs_22
-     python310
-     python314
-     python311
+     python313
      uv
+     odin
 
      # ===== Dev
      biome
@@ -231,6 +234,7 @@
      # ===== Desktop
      nautilus
      telegram-desktop
+     slack
      brave
      xfce.thunar
      i3

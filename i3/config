@@ -205,10 +205,14 @@ for_window [class="Brave-browser"] floating disable, border none
 for_window [class="kitty"] floating disable, border none
 
 exec --no-startup-id i3-msg "workspace 2; exec telegram-desktop"
-exec --no-startup-id i3-msg "workspace 4; exec kitty"
 
 
 exec --no-startup-id "flameshot &"
+
+
+exec --no-startup-id i3-msg "workspace 4; exec kitty"
+exec --no-startup-id "xinput --set-prop 14 'libinput Accel Speed' -0.8"
+
 
 
 
